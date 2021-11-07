@@ -139,10 +139,12 @@ def get_recommendations(prdct,specs):
             max_sim = sims
             uniq_id = y
     if uniq_id!='null':
+        print('not null')
         temp_ind = []
         temp_ind.append(indices[uniq_id])
         temp1 = products['product_name'].iloc[temp_ind]
         temp2 = products['image'].iloc[temp_ind]
+        print('products are ',temp1)
         #temp1,temp2 = product_recommendation(uniq_id)
         #temp1 = products['product_name'].iloc[[2,3]]
         #temp2 = products['image'].iloc[[2,3]]
