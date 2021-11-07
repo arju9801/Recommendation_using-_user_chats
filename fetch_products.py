@@ -37,8 +37,8 @@ def get_products(text):
         first = nltk.pos_tag([token])[0][0]
         second = nltk.pos_tag([token])[0][1]
         if(second=='NN' or second=='NNS'):
-            if products.count(first)>0:
-                prods.append(first)
+            #if products.count(first)>0:
+            prods.append(first)
         if(second=='JJ' or second=='JJR' or second=='JJS'):
             specs.append(first)
     
