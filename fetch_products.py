@@ -6,8 +6,8 @@
 
 import os
 import nltk
-import nltk.corpus
-from nltk.corpus import brown
+#import nltk.corpus
+#from nltk.corpus import brown
 from nltk.tokenize import word_tokenize
 import re
 
