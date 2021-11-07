@@ -1,2 +1,2 @@
 brown
-tokenize
+punkt
