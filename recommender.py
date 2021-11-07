@@ -28,11 +28,12 @@ for x in pp['product_category_tree']:
     arr.append(y.lower())
 pp['product_category_tree']=arr
 pp_user = user_data[['product_category_tree','uniq_id','description']]
-arr_user = []
+arr = []
 for x in user_data['product_category_tree']:
     y = re.sub(r"[\[\"\]>>,]", "",x)
-    arr_user.append(y.lower())
-pp_user['product_category_tree']=arr_user
+    arr.append(y.lower())
+pp_user['product_category_tree']=arr
+arr = ''
 #data cut down and cleaned also
 
 
