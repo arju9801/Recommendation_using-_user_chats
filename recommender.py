@@ -19,8 +19,8 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 
 
 #cutting down the date to reduce load
-products = products.sample(5000)
-user_data = products.sample(100)
+products = products.sample(1000)
+user_data = products.sample(25)
 pp = products[['product_category_tree','uniq_id','description']]
 arr = []
 for x in pp['product_category_tree']:
