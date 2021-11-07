@@ -61,6 +61,7 @@ indices = pd.Series(products.index,index=products['uniq_id']).drop_duplicates()
 def product_recommendation(uniq_id,sig=sig):
     print(uniq_id)
     indx = indices[uniq_id]
+    print('indx are ', indx)
     
     #getting pairwise similarity scores
     sig_scores = list(enumerate(sig[indx]))
