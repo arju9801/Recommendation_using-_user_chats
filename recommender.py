@@ -127,6 +127,7 @@ def get_recommendations(prdct,specs):
      
   if len(recs)==0:
     print('user has never bought any product similar to it, so recommending by itself')
+    max_sim=0
     for x,y,z in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description']):
       x_split = x.split()
       if x_split.count(prdct)>0:
