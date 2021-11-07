@@ -15,9 +15,10 @@ def getSomething():
 	print(specs)
 	arr = []
 	if len(products)!=0: arr = rc.get_recommendations(products[0], specs)
-	res = {}
+	res = {"s.no":[],"item":[]}
 	for it in range(0,len(arr)):
-		res[it].append(arr[it])
+		res["s.no"].append(it)
+		res["item"].append(arr[it])
 	print(res)
 	return res#make_response(dumps(arr))
 
