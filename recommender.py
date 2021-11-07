@@ -36,13 +36,13 @@ arr = []
 products = products.set_index(pd.Index(index_array))
 products['uniq_id'] = index_array
 user_data = products.sample(100)
-pp = products[['product_category_tree','uniq_id','description']]
+pp = products[['product_category_tree','uniq_id','description','image','product_name']]
 
 for x in pp['product_category_tree']:
     y = re.sub(r"[\[\"\]>>,]", "",x)
     arr.append(y.lower())
 pp['product_category_tree']=arr
-pp_user = user_data[['product_category_tree','uniq_id','description']]
+pp_user = user_data[['product_category_tree','uniq_id','description','image','product_name']]
 arr = []
 for x in user_data['product_category_tree']:
     y = re.sub(r"[\[\"\]>>,]", "",x)
@@ -67,34 +67,34 @@ tfv = TfidfVectorizer(max_features=None,
                      stop_words='english')#removes all the unnecessary characters like the,in etc.
 
 #fitting the description column.
-tfv_matrix = tfv.fit_transform(products['description'].values.astype('U'))#converting everythinng to sparse matrix.
+#tfv_matrix = tfv.fit_transform(products['description'].values.astype('U'))#converting everythinng to sparse matrix.
 
-from sklearn.metrics.pairwise import sigmoid_kernel
-sig = sigmoid_kernel(tfv_matrix,tfv_matrix)#how description of first product is related to first product and so on.
+#from sklearn.metrics.pairwise import sigmoid_kernel
+#sig = sigmoid_kernel(tfv_matrix,tfv_matrix)#how description of first product is related to first product and so on.
 
 print('training completed')
 
-indices = pd.Series(products.index,index=products['uniq_id']).drop_duplicates()
+#indices = pd.Series(products.index,index=products['uniq_id']).drop_duplicates()
 
-def product_recommendation(uniq_id,sig=sig):
-    print(uniq_id)
-    indx = indices[uniq_id]
-    print('indx are ', indx)
+#def product_recommendation(uniq_id,sig=sig):
+ #   print(uniq_id)
+  #  indx = indices[uniq_id]
+   # print('indx are ', indx)
     
     #getting pairwise similarity scores
-    sig_scores = list(enumerate(sig[indx]))
-    print(type(sig_scores))
+    #sig_scores = list(enumerate(sig[indx]))
+    #print(type(sig_scores))
     #sorting products
-    sig_scores = sorted(sig_scores, key=lambda x: x[1], reverse=True)
+    #sig_scores = sorted(sig_scores, key=lambda x: x[1], reverse=True)
     
     #10 most similar products score
-    sig_scores = sig_scores[1:11]
+    #sig_scores = sig_scores[1:11]
     
     #product indexes
-    product_indices = [i[0] for i in sig_scores]
+    #product_indices = [i[0] for i in sig_scores]
     
     #Top 10 most similar products
-    return products['product_name'].iloc[product_indices],products['image'].iloc[product_indices]
+    #return products['product_name'].iloc[product_indices],products['image'].iloc[product_indices]
 
 def get_recommendations(prdct,specs):
   prdct = prdct.lower()
@@ -105,11 +105,13 @@ def get_recommendations(prdct,specs):
   imgs = []
   max_sim = 0
   uniq_id = 'null'
+  ans_pr = ""
+  ans_im = ""
 
   print(prdct)
   print(specs)
 
-  for x,y,z in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description']):
+  for x,y,z,im,pr in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description'],pp_user['image'],pp_user['product_name']):
     x_split = x.split()
     if x_split.count(prdct)>0:
       z_split = z.split()
@@ -120,23 +122,25 @@ def get_recommendations(prdct,specs):
       if sims >= max_sim:
         max_sim = sims
         uniq_id = y
+        ans_pr = pr
+        ans_im = im
             #temp = product_recommendation(y)
             #recs.append(temp)
   
-  if uniq_id!='null':
-    print('not null')
-    temp_ind = []
-    temp_ind.append(indices[uniq_id])
-    temp1 = products['product_name'].iloc[temp_ind]
-    temp2 = products['image'].iloc[temp_ind]
-    print('products are ',temp1)
-    recs.append(temp1)
-    imgs.append(temp2) 
+  #if uniq_id!='null':
+   # print('not null')
+    #temp_ind = []
+    #temp_ind.append(indices[uniq_id])
+    #temp1 = products['product_name'].iloc[temp_ind]
+    #temp2 = products['image'].iloc[temp_ind]
+    #print('products are ',temp1)
+    #recs.append(temp1)
+    #imgs.append(temp2) 
      
-  if len(recs)==0:
+  if ans_pr=="":#len(recs)==0:
     print('user has never bought any product similar to it, so recommending by itself')
     max_sim=0
-    for x,y,z in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description']):
+    for x,y,z,im,pr in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description'],pp['image'],pp['product_name']):
       x_split = x.split()
       if x_split.count(prdct)>0:
         z_split = z.split()
@@ -147,18 +151,21 @@ def get_recommendations(prdct,specs):
         if sims >= max_sim:
             max_sim = sims
             uniq_id = y
-    if uniq_id!='null':
-        print('not null')
-        temp_ind = []
-        temp_ind.append(indices[uniq_id])
-        temp1 = products['product_name'].iloc[temp_ind]
-        temp2 = products['image'].iloc[temp_ind]
-        print('products are ',temp1)
+            ans_pr = pr
+            ans_im = im
+
+   # if uniq_id!='null':
+    #    print('not null')
+     #   temp_ind = []
+      #  temp_ind.append(indices[uniq_id])
+       # temp1 = products['product_name'].iloc[temp_ind]
+        #temp2 = products['image'].iloc[temp_ind]
+        #print('products are ',temp1)
         #temp1,temp2 = product_recommendation(uniq_id)
         #temp1 = products['product_name'].iloc[[2,3]]
         #temp2 = products['image'].iloc[[2,3]]
-        recs.append(temp1)
-        imgs.append(temp2) 
+        #recs.append(temp1)
+        #imgs.append(temp2) 
 
         
   #print('checking rec and img')
@@ -167,8 +174,8 @@ def get_recommendations(prdct,specs):
   #print(recs,' ',imgs)
   #print('checked\n')
 
-  if len(recs)==0: return pd.Series([]),pd.Series([])   
-  return recs[0],imgs[0]
+  #if len(recs)==0: return pd.Series([]),pd.Series([])   
+  return ans_pr,ans_im#recs[0],imgs[0]
   #print(product_recommendation(n).unique())
 
 #sample product and specs for now
