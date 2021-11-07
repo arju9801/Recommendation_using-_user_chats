@@ -13,9 +13,13 @@ def getSomething():
 	products,specs = fp.get_products(text)
 	print(products)
 	print(specs)
-	arr = rc.get_recommendations(products[0], specs)
-	print(arr)
-	return make_response(dumps(arr))
+	arr = []
+	if len(products)!=0: arr = rc.get_recommendations(products[0], specs)
+	res = {}
+	for it in range(0,len(arr)):
+		res[it].append(arr[it])
+	print(res)
+	return res#make_response(dumps(arr))
 
 if __name__ == "main":
 	#app.debug = False
