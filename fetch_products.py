@@ -8,7 +8,7 @@ import os
 import nltk
 #import nltk.corpus
 #from nltk.corpus import brown
-nltk.data.path.append('./nltk/')
+nltk.data.path.append('./nltk_data/')
 from nltk.tokenize import word_tokenize
 import re
 
