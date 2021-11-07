@@ -9,6 +9,7 @@ Original file is located at
 
 import numpy as np
 import pandas as pd
+import re
 
 products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daSBoy1oFNoy9g_n13rn3iJftF9')
 #user_data = pd.read_csv('https://drive.google.com/uc?export=download&id=1-A6P1w_GXqc1y4jFwQ1dj1DhSs5E_QNg')
