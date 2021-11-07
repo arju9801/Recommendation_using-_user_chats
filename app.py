@@ -13,7 +13,7 @@ def getSomething():
 	print(products)
 	print(specs)
 	arr = rc.get_recommendations(products[0], specs)
-    print(arr)
+	print(arr)
 	return arr
 
 if __name__ == "main":
