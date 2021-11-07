@@ -30,6 +30,7 @@ for x in products['image']:
   if len(y)!=0:temp=y[0]
   arr.append(temp)
 
+products['image'] = arr
 arr = []
 products = products.set_index(pd.Index(index_array))
 user_data = products.sample(25)
