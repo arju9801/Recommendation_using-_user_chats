@@ -1,7 +1,7 @@
 from flask import Flask, redirect, url_for, request, jsonify
 import fetch_products as fp
 
-#import recommender as rc
+import recommender as rc
 
 app = Flask(__name__)
 
@@ -12,8 +12,9 @@ def getSomething():
 	products,specs = fp.get_products(text)
 	print(products)
 	print(specs)
+	arr = rc.get_recommendations(products[0], specs)
     
-	return jsonify({"products":products,"specs":specs})
+	return arr
 
 if __name__ == "main":
 	#app.debug = False
