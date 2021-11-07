@@ -34,6 +34,7 @@ for x in products['image']:
 products['image'] = arr
 arr = []
 products = products.set_index(pd.Index(index_array))
+products['uniq_id'] = index_array
 user_data = products.sample(100)
 pp = products[['product_category_tree','uniq_id','description']]
 
