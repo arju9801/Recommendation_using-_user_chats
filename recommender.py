@@ -105,6 +105,9 @@ def get_recommendations(prdct,specs):
   max_sim = 0
   uniq_id = 'null'
 
+  print(prdct)
+  print(specs)
+
   for x,y,z in zip(pp_user['product_category_tree'],pp_user['uniq_id'],pp_user['description']):
     x_split = x.split()
     if x_split.count(prdct)>0:
@@ -120,11 +123,14 @@ def get_recommendations(prdct,specs):
             #recs.append(temp)
   
   if uniq_id!='null':
-        temp1,temp2 = product_recommendation(uniq_id)
-        #temp1 = products['product_name'].iloc[[0,1]]
-        #temp2 = products['image'].iloc[[0,1]]
-        recs.append(temp1)
-        imgs.append(temp2)
+    print('not null')
+    temp_ind = []
+    temp_ind.append(indices[uniq_id])
+    temp1 = products['product_name'].iloc[temp_ind]
+    temp2 = products['image'].iloc[temp_ind]
+    print('products are ',temp1)
+    recs.append(temp1)
+    imgs.append(temp2) 
      
   if len(recs)==0:
     print('user has never bought any product similar to it, so recommending by itself')
