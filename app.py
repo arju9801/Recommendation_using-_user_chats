@@ -20,7 +20,9 @@ def getSomething():
 	#print(specs)
 	arr = ""#pd.Series([])
 	img = ""#pd.Series([])
-	if len(products)!=0: arr,img = rc.get_recommendations(products[0], specs)
+	if len(products)!=0:
+		arr,img = rc.get_recommendations(products[0], specs)
+	print('got ',arr,img)	
 	#print("type is ",type(arr),' ', type(img))
 	#print(arr,' ',img)
 	product_to_Send = arr#''

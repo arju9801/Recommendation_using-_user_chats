@@ -174,7 +174,8 @@ def get_recommendations(prdct,specs):
   #print(recs,' ',imgs)
   #print('checked\n')
 
-  #if len(recs)==0: return pd.Series([]),pd.Series([])   
+  #if len(recs)==0: return pd.Series([]),pd.Series([]) 
+  print('on recommender side ',ans_pr,ans_im)  
   return ans_pr,ans_im#recs[0],imgs[0]
   #print(product_recommendation(n).unique())
 
