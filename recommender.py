@@ -24,7 +24,8 @@ products = products.sample(3000)
 #image link cleaning
 arr = []
 for x in products['image']:
-  y = re.sub(r"[\[\"\]\\>>,]", "",x)
+  y = str(x)
+  y = re.sub(r"[\[\"\]\\>>,]", "",y)
   y = y.split()
   temp = ''
   if len(y)!=0:temp=y[0]
