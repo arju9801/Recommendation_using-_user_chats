@@ -49,7 +49,7 @@ pp_user['product_category_tree']=arr
 arr = ''
 #data cut down and cleaned also
 
-for x,y in zip(user_data['product_tree'],user_data['description']):
+for x,y in zip(pp_user['product_category_tree'],pp_user['description']):
   print('user has bought ',x,' ==>> 'y)
   break
 
