@@ -15,11 +15,25 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 #pp = pd.read_csv('https://drive.google.com/uc?export=download&id=1p7qsdklDSyarH7jJc2B39VQObEzxN2jZ')
 #pp_user = pd.read_csv('https://drive.google.com/uc?export=download&id=1-0W0V_YWNHRTHLuwM3TX4ZK3oUEfsAys')
 
+
+
 #cutting down the date to reduce load
 products = products.sample(5000)
 user_data = products.sample(100)
 pp = products[['product_category_tree','uniq_id','description']]
+arr = []
+for x in pp['product_category_tree']:
+    y = re.sub(r"[\[\"\]>>,]", "",x)
+    arr.append(y.lower())
+pp['product_category_tree']=arr
 pp_user = user_data[['product_category_tree','uniq_id','description']]
+arr_user = []
+for x in user_data['product_category_tree']:
+    y = re.sub(r"[\[\"\]>>,]", "",x)
+    arr_user.append(y.lower())
+pp_user['product_category_tree']=arr_user
+#data cut down and cleaned also
+
 
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfv = TfidfVectorizer(max_features=None,
