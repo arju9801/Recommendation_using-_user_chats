@@ -37,6 +37,8 @@ arr = ''
 #data cut down and cleaned also
 
 
+print('training starts')
+
 from sklearn.feature_extraction.text import TfidfVectorizer
 tfv = TfidfVectorizer(max_features=None,
                      strip_accents='unicode',
@@ -51,6 +53,8 @@ tfv_matrix = tfv.fit_transform(products['description'].values.astype('U'))#conve
 
 from sklearn.metrics.pairwise import sigmoid_kernel
 sig = sigmoid_kernel(tfv_matrix,tfv_matrix)#how description of first product is related to first product and so on.
+
+print('training completed')
 
 indices = pd.Series(products.index,index=products['uniq_id']).drop_duplicates()
 
