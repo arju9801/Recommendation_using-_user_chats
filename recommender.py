@@ -50,7 +50,7 @@ arr = ''
 #data cut down and cleaned also
 
 for x,y in zip(pp_user['product_category_tree'],pp_user['description']):
-  print('user has bought ',x,' ==>> 'y)
+  print('user has bought ',x,' ==>> ',y)
   break
 
 print('training starts')
