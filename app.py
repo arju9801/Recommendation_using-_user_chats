@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, request, jsonify
 import fetch_products as fp
-import pandas as pd
 
 #import recommender as rc
 
