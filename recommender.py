@@ -18,8 +18,8 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 
 #cutting down the date to reduce load
 index_array = []
-for i in range(1,1001):index_array.append(i)
-products = products.sample(1000)
+for i in range(1,3001):index_array.append(i)
+products = products.sample(3000)
 
 #image link cleaning
 arr = []
@@ -33,7 +33,7 @@ for x in products['image']:
 products['image'] = arr
 arr = []
 products = products.set_index(pd.Index(index_array))
-user_data = products.sample(25)
+user_data = products.sample(100)
 pp = products[['product_category_tree','uniq_id','description']]
 
 for x in pp['product_category_tree']:
