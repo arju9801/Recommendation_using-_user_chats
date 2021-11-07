@@ -118,9 +118,9 @@ def get_recommendations(prdct,specs):
             uniq_id = y
     if uniq_id!='null':
         recs.append(product_recommendation(uniq_id))            
-    
-  print(recs)        
+           
   print("\nTop Recommended products are: \n")
+  return recs
   #print(product_recommendation(n).unique())
 
 #sample product and specs for now
