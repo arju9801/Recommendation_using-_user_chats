@@ -20,8 +20,8 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 
 #cutting down the date to reduce load
 index_array = []
-for i in range(1,1001):index_array.append(i)
-products = products.sample(1000)
+for i in range(1,501):index_array.append(i)
+products = products.sample(500)
 products = products.set_index(pd.Index(index_array))
 user_data = products.sample(25)
 pp = products[['product_category_tree','uniq_id','description']]
@@ -79,7 +79,7 @@ def product_recommendation(uniq_id,sig=sig):
     product_indices = [i[0] for i in sig_scores]
     
     #Top 10 most similar products
-    return products['product_name'].iloc[product_indices]
+    return products['product_name'].iloc[product_indices],products['image'].iloc[product_indices]
 
 def get_recommendations(prdct,specs):
   prdct = prdct.lower()
@@ -87,6 +87,7 @@ def get_recommendations(prdct,specs):
     specs[i]=specs[i].lower()
 
   recs = []
+  imgs = []
   max_sim = 0
   uniq_id = 'null'
 
@@ -105,7 +106,11 @@ def get_recommendations(prdct,specs):
             #recs.append(temp)
   
   if uniq_id!='null':
-        recs.append(product_recommendation(uniq_id))
+        temp1,temp2 = product_recommendation(uniq_id)
+        #temp1 = products['product_name'].iloc[[0,1]]
+        #temp2 = products['image'].iloc[[0,1]]
+        recs.append(temp1)
+        imgs.append(temp2)
      
   if len(recs)==0:
     print('user has never bought any product similar to it, so recommending by itself')
@@ -121,10 +126,21 @@ def get_recommendations(prdct,specs):
             max_sim = sims
             uniq_id = y
     if uniq_id!='null':
-        recs.append(product_recommendation(uniq_id))            
-           
-  print("\nTop Recommended products are: \n")
-  return recs
+        temp1,temp2 = product_recommendation(uniq_id)
+        #temp1 = products['product_name'].iloc[[2,3]]
+        #temp2 = products['image'].iloc[[2,3]]
+        recs.append(temp1)
+        imgs.append(temp2) 
+
+        
+  #print('checking rec and img')
+  #print(recs[0],' ',imgs[0])
+  #print('\nchecking recs and imgs')
+  #print(recs,' ',imgs)
+  #print('checked\n')
+
+  if len(recs)==0: return pd.Series([]),pd.Series([])   
+  return recs[0],imgs[0]
   #print(product_recommendation(n).unique())
 
 #sample product and specs for now
