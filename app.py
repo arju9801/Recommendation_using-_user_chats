@@ -7,7 +7,11 @@ import recommender as rc
 
 app = Flask(__name__)
 
-@app.route("/getSomething",methods=['POST'])
+@app.route("/startServer",methods=['GET'])
+def startServer():
+	return jsonify({"response":"Server is on"})
+
+@app.route("/getRecommendation",methods=['POST'])
 def getSomething():
 	text = request.json['text']
 	#print(text)
