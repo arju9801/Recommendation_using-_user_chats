@@ -20,7 +20,7 @@ def getSomething():
 		res["s.no"].append(it)
 		res["item"].append(arr[it])
 	print(res)
-	return res#make_response(dumps(arr))
+	return jsonify(res)#make_response(dumps(arr))
 
 if __name__ == "main":
 	#app.debug = False
