@@ -16,16 +16,25 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 #pp = pd.read_csv('https://drive.google.com/uc?export=download&id=1p7qsdklDSyarH7jJc2B39VQObEzxN2jZ')
 #pp_user = pd.read_csv('https://drive.google.com/uc?export=download&id=1-0W0V_YWNHRTHLuwM3TX4ZK3oUEfsAys')
 
-
-
 #cutting down the date to reduce load
 index_array = []
 for i in range(1,1001):index_array.append(i)
 products = products.sample(1000)
+
+#image link cleaning
+arr = []
+for x in products['image']:
+  y = re.sub(r"[\[\"\]\\>>,]", "",x)
+  y = y.split()
+  temp = ''
+  if len(y)!=0:temp=y[0]
+  arr.append(temp)
+
+arr = []
 products = products.set_index(pd.Index(index_array))
 user_data = products.sample(25)
 pp = products[['product_category_tree','uniq_id','description']]
-arr = []
+
 for x in pp['product_category_tree']:
     y = re.sub(r"[\[\"\]>>,]", "",x)
     arr.append(y.lower())
