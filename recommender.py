@@ -20,8 +20,8 @@ products = pd.read_csv('https://drive.google.com/uc?export=download&id=1-AT49daS
 
 #cutting down the date to reduce load
 index_array = []
-for i in range(1,501):index_array.append(i)
-products = products.sample(500)
+for i in range(1,1001):index_array.append(i)
+products = products.sample(1000)
 products = products.set_index(pd.Index(index_array))
 user_data = products.sample(25)
 pp = products[['product_category_tree','uniq_id','description']]
