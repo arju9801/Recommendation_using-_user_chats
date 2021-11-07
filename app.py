@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, request, jsonify
+from json import dumps
 import fetch_products as fp
 
 import recommender as rc
@@ -14,7 +15,7 @@ def getSomething():
 	print(specs)
 	arr = rc.get_recommendations(products[0], specs)
 	print(arr)
-	return arr
+	return make_response(dumps(arr))
 
 if __name__ == "main":
 	#app.debug = False
